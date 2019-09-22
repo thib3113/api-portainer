@@ -24,4 +24,4 @@ services:
         volumes:
           - jira_data:/var/atlassian/jira
         ports:
-            - 8002:8080
+            - 0:8080
