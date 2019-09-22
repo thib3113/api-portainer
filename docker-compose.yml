@@ -1,0 +1,27 @@
+version: "3.7"
+
+volumes:
+  portainer_data:
+  jira_data:
+
+services:
+    #########################################################################
+    ## Portainer
+    #########################################################################
+    portainer:
+        image: portainer/portainer
+        command: -H unix:///var/run/docker.sock
+        ports:
+            - 8001:9000
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - portainer_data:/data
+    #########################################################################
+    ## JIRA: 
+    #########################################################################
+    jira:
+        image: cptactionhank/atlassian-jira-software:8.1.0
+        volumes:
+          - jira_data:/var/atlassian/jira
+        ports:
+            - 8002:8080
