@@ -36,11 +36,10 @@ const getStackDefinitionFile = async(host: string, token: string, stackId: strin
 const createStack = async (host: string, token: string , data: Object) => {
     const url = host + '/api/stacks';
     const headers = {
-        "Content-Type": "application/json",
         'Authorization': 'Bearer ' + token
     };
 
-    const response = await axios.post(url, { headers: headers , data: data });
+    const response = await axios.post(url, {headers: headers}, {data: data} );
 
     return response.data;
 };
