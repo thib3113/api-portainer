@@ -4,7 +4,7 @@
   "description": "A node Api Manager for Portainer",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openderock/portainer-api.git"
+    "url": "git@github.com:openderock/api-portainer.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
