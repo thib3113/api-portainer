@@ -1,6 +1,6 @@
 {
   "name": "api-portainer",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "A node Api Manager for Portainer",
   "repository": {
     "type": "git",
