@@ -33,12 +33,19 @@ const getStackDefinitionFile = async(host: string, token: string, stackId: strin
     return response.data.StackFileContent;
 };
 
-const createStack = async (host: string, token: string , data: Object) => {
+const createStack = async (host: string, token: string , name: string) => {
     const url = host + '/api/stacks?method=repository&type=1&endpointId=1';
     const headers = {
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ' + token
     }
+    const data = {
+        "Name": name,
+        "SwarmID": "jpofkc0i9uo9wtx1zesuk649w",
+        "StackFileContent": "version:\n volumes:\n services:\n image:cptactionhank/atlassian-jira-software",
+        "RepositoryURL": "https://github.com/sajadam98/api-portainer",
+        "ComposeFilePathInRepository": "src/dockercompose.yml"
+      }
 
     const response = await axios({method:"POST", url:url, headers: headers, data: data });
 
