@@ -40,7 +40,7 @@ const createStack = async (host: string, token: string , data: Object) => {
         'Authorization': 'Bearer ' + token
     };
 
-    const response = await axios.post(url, {headers: headers}, {data: data} );
+    const response = await axios({method:"POST", url:url, headers: headers, data: data });
 
     return response.data;
 };
