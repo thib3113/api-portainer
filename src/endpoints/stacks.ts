@@ -38,11 +38,11 @@ const createStack = async (host: string, token: string , data: Object) => {
     const headers = {
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ' + token
-    };
+    }
 
     const response = await axios({method:"POST", url:url, headers: headers, data: data });
 
-    return response.data;
+    return response;
 };
 const deleteStack = async (host: string, token: string , stackId: string) => {
     const url = `${host}/api/stacks/${stackId}`;
