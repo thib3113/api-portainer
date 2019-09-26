@@ -34,7 +34,7 @@ const getStackDefinitionFile = async(host: string, token: string, stackId: strin
 };
 
 const createStack = async (host: string, token: string , data: Object) => {
-    const url = host + '/api/stacks';
+    const url = host + '/api/stacks?method=repository&type=1&endpointId=1';
     const headers = {
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ' + token
