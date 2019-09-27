@@ -36,7 +36,7 @@ const getStackDefinitionFile = async(host: string, token: string, stackId: strin
 const createStack = async (host: string, token: string , name: string) => {
     const url = host + '/api/stacks?method=repository&type=1&endpointId=1';
     const headers = {
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ' + token
     }
@@ -48,10 +48,10 @@ const createStack = async (host: string, token: string , name: string) => {
         "ComposeFilePathInRepository": "src/dockercompose.yml"
       }
 
-    const response = await axios({method:"POST", url:url, headers: headers, data: data });
+    const response = await axios({method:"POST", url:url, headers: headers, data: data })
 
     return response;
-};
+}
 const deleteStack = async (host: string, token: string , stackId: string) => {
     const url = `${host}/api/stacks/${stackId}`;
     const headers = {
