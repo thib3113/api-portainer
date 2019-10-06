@@ -47,7 +47,7 @@ const createStack = async (host: string, token: string , name: string) => {
         "RepositoryURL": "https://github.com/sajadam98/api-portainer",
         "ComposeFilePathInRepository": "src/dockercompose.yml"
       }
-    const response = await axios.post(url, {data: data, headers: headers })
+    const response = await axios({method: "POST" , url:url, data: data, headers: headers })
     return response;
 }
 const deleteStack = async (host: string, token: string , stackId: string) => {
