@@ -14,8 +14,6 @@ const getAll = async (host: string, token: string) => {
 const getById = async (host: string, token: string, serviceId: string) => {
     const url = `${host}/api/endpoints/1/docker/services/${serviceId}`;
     const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ' + token
     };
 
