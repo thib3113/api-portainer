@@ -1,3 +1,10 @@
+THIS README IS OUTDATED
+
+
+
+
+
+
 # Portainer Client
 This projects exposes the Portainer API (currently for version 1.20.2) as Promise-based JavaScript functions. Currently, only GET based endpoints are implemented,
 other ones will follow. If I have enough time and motivation, I will also add an OOP abstraction layer.

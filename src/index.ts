@@ -1,15 +1,15 @@
-import * as auth from './endpoints/auth';
-import * as endpoints from './endpoints/endpoints';
-import * as endpointGroups from './endpoints/endpoint_groups';
-import * as registries from './endpoints/registries';
-import * as settings from './endpoints/settings';
-import * as status from './endpoints/status';
-import * as stacks from './endpoints/stacks';
-import * as users from './endpoints/users';
-import * as tags from './endpoints/tags';
-import * as teams from './endpoints/teams';
-import * as teamMemberships from './endpoints/team_memberships';
-import * as templates from './endpoints/templates';
+import * as auth from './endpoints/Auth';
+import * as endpoints from './endpoints/Endpoints';
+import * as endpointGroups from './endpoints/EndpointGroups';
+import * as registries from './endpoints/Registries';
+import * as settings from './endpoints/Settings';
+import * as status from './endpoints/Status';
+import * as stacks from './endpoints/Stacks';
+import * as users from './endpoints/Users';
+import * as tags from './endpoints/Tags';
+import * as teams from './endpoints/Teams';
+import * as teamMemberships from './endpoints/TeamMemberships';
+import * as templates from './endpoints/Templates';
 import PortainerSession from './PortainerSession/PortainerSession';
 
 export default PortainerSession;

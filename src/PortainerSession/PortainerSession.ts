@@ -1,53 +1,127 @@
-import * as auth from '../endpoints/auth';
-import * as settings from '../endpoints/settings';
-import * as dockerhub from '../endpoints/dockerhub';
-import * as endpointGroups from '../endpoints/endpoint_groups';
-import * as endpoints from '../endpoints/endpoints';
-import * as registries from '../endpoints/registries';
-import * as stacks from '../endpoints/stacks';
-import * as status from '../endpoints/status';
-import * as tags from '../endpoints/tags';
-import * as teamMemberships from '../endpoints/team_memberships';
-import * as teams from '../endpoints/teams';
-import * as templates from '../endpoints/templates';
-import * as users from '../endpoints/users';
+import * as settings from '../endpoints/Settings';
+import * as dockerhub from '../endpoints/DockerHub';
+import * as endpointGroups from '../endpoints/EndpointGroups';
+import * as endpoints from '../endpoints/Endpoints';
+import * as registries from '../endpoints/Registries';
+import * as stacks from '../endpoints/Stacks';
+import * as status from '../endpoints/Status';
+import * as tags from '../endpoints/Tags';
+import * as teamMemberships from '../endpoints/TeamMemberships';
+import * as teams from '../endpoints/Teams';
+import * as templates from '../endpoints/Templates';
+import * as users from '../endpoints/Users';
+import axios, { AxiosInstance } from 'axios';
+import Auth from '../endpoints/Auth';
+import JWTToken from '../objects/JWTToken';
+import Settings from '../endpoints/Settings';
+import DockerHub from '../endpoints/DockerHub';
+import Endpoints from '../endpoints/Endpoints';
+import Registries from '../endpoints/Registries';
+import Services from '../endpoints/Services';
+import Stacks from '../endpoints/Stacks';
+import Status from '../endpoints/Status';
+import Tags from '../endpoints/Tags';
+import Teams from '../endpoints/Teams';
+import TeamMemberships from '../endpoints/TeamMemberships';
+import Templates from '../endpoints/Templates';
+import Users from '../endpoints/Users';
 
 /**
  * A session retrieves a token upon creation and uses it for subsequent requests
  * against the Portainer API.
  */
-export default class PortainerSession {
-    private host: string;
-    private token: string;
 
-    /**
-     * Instantiate with JWT token. For username+password auth, use PortainerSession.create()
-     *
-     * @param host Portainer URL (e.g. https://portainer.example.com)
-     * @param token The JWT token received via authentication
-     */
-    private constructor(host: string, token: string) {
-        this.host = (host.charAt(host.length - 1) !== '/') ? host : host.slice(0, host.length - 2);
-        this.token = token;
+const priv: IAuth & {
+    getAuth?: () => IAuth;
+} = {};
+
+export default class PortainerSession {
+    private readonly host: string;
+    private token: JWTToken | undefined;
+    private readonly axiosInstance: AxiosInstance;
+
+    public auth: Auth;
+    public settings: Settings;
+    private dockerHub: DockerHub;
+    private endpoints: Endpoints;
+    private registries: Registries;
+    private services: Services;
+    private stacks: Stacks;
+    private status: Status;
+    private tags: Services;
+    private teamMemberships: TeamMemberships;
+    private teams: Teams;
+    private templates: Templates;
+    private users: Users;
+
+    private async getToken(): Promise<string> {
+        const { username, password } = priv.getAuth
+            ? priv.getAuth()
+            : { username: priv.username as string, password: priv.password as string };
+        return this.token && this.token.isValid ? this.token.toString() : await this._getToken(username as string, password as string);
     }
 
-    /**
-     * Instantiate a new Portainer Session with username+password.
-     *
-     * @param host Portainer URL (e.g. https://portainer.example.com)
-     * @param username Username to use for authentication
-     * @param password Password to use for authentication
-     */
-    public static async create(host: string, username: string, password: string) {
-        const token = await auth.authenticate(host, username, password);
+    private async _getToken(username: string, password: string): Promise<string> {
+        try {
+            const token = await this.auth.authenticate(username, password);
+            this.token = new JWTToken(token);
+            return token;
+        } catch (e) {
+            throw new Error('fail to get JWT token');
+        }
+    }
 
-        return new PortainerSession(host, token);
+    public constructor(params: IPortainerSessionConfigs) {
+        this.host = params.host.charAt(params.host.length - 1) !== '/' ? params.host : params.host.slice(0, -1);
+
+        if (params.username && params.password) {
+            priv.username = params.username;
+            priv.password = params.password;
+        } else if (params.getAuth) {
+            priv.getAuth = params.getAuth;
+        } else {
+            throw new Error('you need to pass username/password or getAuth function');
+        }
+
+        this.axiosInstance = axios.create({
+            baseURL: `${this.host}/api`
+        });
+
+        this.axiosInstance.interceptors.request.use(
+            async config => {
+                //set Bearer
+                if (config.headers.Authorization !== false) {
+                    config.headers.Authorization = `Bearer ${await this.getToken()}`;
+                } else {
+                    delete config.headers.Authorization;
+                }
+                return config;
+            },
+            function(err) {
+                return Promise.reject(err);
+            }
+        );
+
+        //init endpoints
+        this.auth = new Auth(this.axiosInstance);
+        this.dockerHub = new DockerHub(this.axiosInstance);
+        this.endpoints = new Endpoints(this.axiosInstance);
+        this.registries = new Registries(this.axiosInstance);
+        this.services = new Services(this.axiosInstance);
+        this.settings = new Settings(this.axiosInstance);
+        this.stacks = new Stacks(this.axiosInstance);
+        this.status = new Status(this.axiosInstance);
+        this.tags = new Tags(this.axiosInstance);
+        this.teamMemberships = new TeamMemberships(this.axiosInstance);
+        this.teams = new Teams(this.axiosInstance);
+        this.templates = new Templates(this.axiosInstance);
+        this.users = new Users(this.axiosInstance);
     }
 
     //
     // Settings
     //
-
+    /*
     public getSettings() {
         return settings.getAll(this.host, this.token);
     }
@@ -141,7 +215,7 @@ export default class PortainerSession {
     }
 
     public getTagById(id: string) {
-        return tags.getById(this.host, this.token, id)
+        return tags.getById(this.host, this.token, id);
     }
 
     //
@@ -195,4 +269,5 @@ export default class PortainerSession {
     public getMembershipsByUserId(id: string) {
         return users.getUserMemberships(this.host, this.token, id);
     }
-};
+   */
+}
