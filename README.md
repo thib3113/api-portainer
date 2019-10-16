@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/thib3113/api-portainer.svg?branch=master)](https://travis-ci.org/thib3113/api-portainer)
+
 THIS README IS OUTDATED
 
 
