@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/thib3113/api-portainer.svg?branch=master)](https://travis-ci.org/thib3113/api-portainer)
+[![Build Status](https://travis-ci.org/thib3113/api-portainer.svg?branch=master)](https://travis-ci.org/thib3113/api-portainer) [![Greenkeeper badge](https://badges.greenkeeper.io/thib3113/api-portainer.svg)](https://greenkeeper.io/)
 
 THIS README IS OUTDATED
 
