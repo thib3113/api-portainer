@@ -1,15 +1,3 @@
-import * as settings from '../endpoints/Settings';
-import * as dockerhub from '../endpoints/DockerHub';
-import * as endpointGroups from '../endpoints/EndpointGroups';
-import * as endpoints from '../endpoints/Endpoints';
-import * as registries from '../endpoints/Registries';
-import * as stacks from '../endpoints/Stacks';
-import * as status from '../endpoints/Status';
-import * as tags from '../endpoints/Tags';
-import * as teamMemberships from '../endpoints/TeamMemberships';
-import * as teams from '../endpoints/Teams';
-import * as templates from '../endpoints/Templates';
-import * as users from '../endpoints/Users';
 import axios, { AxiosInstance } from 'axios';
 import Auth from '../endpoints/Auth';
 import JWTToken from '../objects/JWTToken';
@@ -31,11 +19,11 @@ import Users from '../endpoints/Users';
  * against the Portainer API.
  */
 
-const priv: IAuth & {
-    getAuth?: () => IAuth;
-} = {};
-
 export default class PortainerSession {
+    private priv: IAuth & {
+        getAuth?: () => IAuth;
+    } = {};
+
     private readonly host: string;
     private token: JWTToken | undefined;
     private readonly axiosInstance: AxiosInstance;
@@ -55,9 +43,9 @@ export default class PortainerSession {
     private users: Users;
 
     private async getToken(): Promise<string> {
-        const { username, password } = priv.getAuth
-            ? priv.getAuth()
-            : { username: priv.username as string, password: priv.password as string };
+        const { username, password } = this.priv.getAuth
+            ? this.priv.getAuth()
+            : { username: this.priv.username as string, password: this.priv.password as string };
         return this.token && this.token.isValid ? this.token.toString() : await this._getToken(username as string, password as string);
     }
 
@@ -71,14 +59,35 @@ export default class PortainerSession {
         }
     }
 
+    private checkUrl(portainerUrl: string): string {
+        if (!portainerUrl) {
+            throw new Error('Portainer Host is needed');
+        }
+
+        const myURL = new URL(portainerUrl);
+        if (!myURL.protocol || !myURL.hostname) {
+            throw new Error('Portainer host seems invalid');
+        }
+
+        if (!myURL.protocol.match(/https?/)) {
+            throw new Error('Portainer host need to start with https?');
+        }
+
+        return myURL.toString().slice(0, -1);
+    }
+
     public constructor(params: IPortainerSessionConfigs) {
-        this.host = params.host.charAt(params.host.length - 1) !== '/' ? params.host : params.host.slice(0, -1);
+        if (!params.host) {
+            throw new Error('params.host is needed');
+        }
+
+        this.host = this.checkUrl(params.host);
 
         if (params.username && params.password) {
-            priv.username = params.username;
-            priv.password = params.password;
+            this.priv.username = params.username;
+            this.priv.password = params.password;
         } else if (params.getAuth) {
-            priv.getAuth = params.getAuth;
+            this.priv.getAuth = params.getAuth;
         } else {
             throw new Error('you need to pass username/password or getAuth function');
         }

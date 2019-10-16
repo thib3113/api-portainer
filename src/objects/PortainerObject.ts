@@ -1,8 +1,10 @@
-import {AxiosInstance} from "axios";
+import { AxiosInstance } from 'axios';
 
-export default abstract class portainerObject {
+export default abstract class PortainerObject {
     protected readonly instance: AxiosInstance;
-    constructor(instance:AxiosInstance){
+
+    // noinspection TypeScriptAbstractClassConstructorCanBeMadeProtected
+    public constructor(instance: AxiosInstance) {
         this.instance = instance;
     }
 }

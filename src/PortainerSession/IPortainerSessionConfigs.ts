@@ -1,4 +1,4 @@
-interface IPortainerSessionConfigs extends Partial<IAuth>{
-    host: string,
-    getAuth?: () => IAuth
+interface IPortainerSessionConfigs extends Partial<IAuth> {
+    host: string;
+    getAuth?: () => IAuth;
 }
