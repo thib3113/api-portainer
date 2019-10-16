@@ -6,9 +6,7 @@ export default class DockerHub extends portainerObject {
      *
      */
     async getDockerHubInfo(): Promise<any> {
-        const response = await this.instance.get(
-            `/dockerhub`,
-        );
+        const response = await this.instance.get(`/dockerhub`);
         return response.data;
     }
 }

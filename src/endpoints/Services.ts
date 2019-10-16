@@ -6,9 +6,7 @@ export default class Services extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/endpoints/1/docker/services`,
-        );
+        const response = await this.instance.get(`/endpoints/1/docker/services`);
         return response.data;
     }
 
@@ -17,9 +15,7 @@ export default class Services extends portainerObject {
      *
      */
     async getById(serviceId: string): Promise<any> {
-        const response = await this.instance.get(
-            `/endpoints/1/docker/services/${serviceId}`,
-        );
+        const response = await this.instance.get(`/endpoints/1/docker/services/${serviceId}`);
         return response.data;
     }
 }

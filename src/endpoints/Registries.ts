@@ -6,9 +6,7 @@ export default class Registries extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/registries`,
-        );
+        const response = await this.instance.get(`/registries`);
         return response.data;
     }
 
@@ -17,9 +15,7 @@ export default class Registries extends portainerObject {
      *
      */
     async getById(registryId: string): Promise<any> {
-        const response = await this.instance.get(
-            `/registries/${registryId}`,
-        );
+        const response = await this.instance.get(`/registries/${registryId}`);
         return response.data;
     }
 }

@@ -226,7 +226,6 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/node,linux,macos,windows,jetbrains+all
 
-yarn.lock
 package-lock.json
 yarn-error.log
 dist

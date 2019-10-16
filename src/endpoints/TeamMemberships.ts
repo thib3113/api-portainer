@@ -6,9 +6,7 @@ export default class TeamMemberships extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/team_memberships`,
-        );
+        const response = await this.instance.get(`/team_memberships`);
         return response.data;
     }
 

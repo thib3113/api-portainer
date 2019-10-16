@@ -9,9 +9,7 @@ export default class EndpointGroups extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/endpoints`,
-        );
+        const response = await this.instance.get(`/endpoints`);
         return response.data;
     }
 
@@ -20,11 +18,7 @@ export default class EndpointGroups extends portainerObject {
      *
      */
     async getById(endpointGroupId: string): Promise<any> {
-        const response = await this.instance.get(
-            `/endpoints/${endpointGroupId}`,
-        );
+        const response = await this.instance.get(`/endpoints/${endpointGroupId}`);
         return response.data;
     }
-
-
 }

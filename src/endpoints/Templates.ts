@@ -6,9 +6,7 @@ export default class Templates extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/templates`,
-        );
+        const response = await this.instance.get(`/templates`);
         return response.data;
     }
 
@@ -17,9 +15,7 @@ export default class Templates extends portainerObject {
      *
      */
     async getById(templateId: string): Promise<any> {
-        const response = await this.instance.get(
-            `/templates/${templateId}`,
-        );
+        const response = await this.instance.get(`/templates/${templateId}`);
         return response.data;
     }
 }

@@ -21,7 +21,11 @@
     "prepack": "npm run build",
     "test": "jest"
   },
-  "author": "Sajad amiri",
+  "author": {
+    "name": "Thibaut SEVERAC",
+    "email": "thib3113@gmail.com"
+  },
+  "contributors": [],
   "license": "MIT",
   "dependencies": {
     "@types/jsonwebtoken": "^8.3.5",

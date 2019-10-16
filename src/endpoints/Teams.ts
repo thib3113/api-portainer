@@ -6,9 +6,7 @@ export default class Teams extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/teams`,
-        );
+        const response = await this.instance.get(`/teams`);
         return response.data;
     }
 
@@ -17,13 +15,10 @@ export default class Teams extends portainerObject {
      *
      */
     async getById(teamId: string): Promise<any> {
-        const response = await this.instance.get(
-            `/teams/${teamId}`,
-        );
+        const response = await this.instance.get(`/teams/${teamId}`);
         return response.data;
     }
 }
-
 
 // import axios from 'axios';
 //

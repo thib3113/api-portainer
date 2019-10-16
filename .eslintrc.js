@@ -15,8 +15,8 @@ module.exports = {
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/array-type': ['warn', { default: 'generic', readonly: 'generic' }],
         indent: 'off', //prettier take it in charge
-        "@typescript-eslint/no-object-literal-type-assertion": 'off',
-        "@typescript-eslint/no-inferrable-types": 'off',
+        '@typescript-eslint/no-object-literal-type-assertion': 'off',
+        '@typescript-eslint/no-inferrable-types': 'off',
         '@typescript-eslint/ban-ts-ignore': 'off'
     }
 };

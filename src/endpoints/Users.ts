@@ -6,9 +6,7 @@ export default class Users extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/users`,
-        );
+        const response = await this.instance.get(`/users`);
         return response.data;
     }
 
@@ -17,16 +15,12 @@ export default class Users extends portainerObject {
      *
      */
     async getById(userId: string): Promise<any> {
-        const response = await this.instance.get(
-            `/users/${userId}`,
-        );
+        const response = await this.instance.get(`/users/${userId}`);
         return response.data;
     }
 
-    async checkAdminAccount(){
-        const response = await this.instance.get(
-            `/users/admin/check`,
-        );
+    async checkAdminAccount() {
+        const response = await this.instance.get(`/users/admin/check`);
         return response.status === 204;
     }
 }

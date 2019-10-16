@@ -6,9 +6,7 @@ export default class Services extends portainerObject {
      *
      */
     async getAll(): Promise<any> {
-        const response = await this.instance.get(
-            `/tags`,
-        );
+        const response = await this.instance.get(`/tags`);
         return response.data;
     }
 
@@ -17,9 +15,7 @@ export default class Services extends portainerObject {
      *
      */
     async getById(tagId: string): Promise<any> {
-        const response = await this.instance.get(
-            `/tags/${tagId}`,
-        );
+        const response = await this.instance.get(`/tags/${tagId}`);
         return response.data;
     }
 }
