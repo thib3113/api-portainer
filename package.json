@@ -31,7 +31,7 @@
     "@types/jsonwebtoken": "^8.3.5",
     "axios": ">=0.18.1",
     "jsonwebtoken": "latest",
-    "np": "^5.1.0",
+    "np": "^6.2.1",
     "source-map-support": "^0.5.13"
   },
   "devDependencies": {
